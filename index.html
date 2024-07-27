@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claim Free 100 Followers - Risov's Birthday</title>
+    <link rel="icon" href="https://static.vecteezy.com/system/resources/previews/021/396/907/non_2x/gift-logo-gift-box-logo-or-surprise-logo-vector.jpg" type="image/x-icon">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            width: 100%;
+            max-width: 500px;
+            text-align: center;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        input[type="text"], input[type="number"] {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .progress {
+            width: 100%;
+            background-color: #f3f3f3;
+            border-radius: 4px;
+            margin: 20px 0;
+        }
+        .progress-bar {
+            width: 0;
+            height: 20px;
+            background-color: #28a745;
+            border-radius: 4px;
+        }
+        .message {
+            text-align: center;
+            margin-top: 20px;
+            color: #d9534f;
+        }
+        .completed {
+            color: #28a745;
+        }
+        .hidden {
+            display: none;
+        }
+        .preview {
+            text-align: left;
+            margin-top: 20px;
+        }
+        .preview img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 20px;
+            border-radius: 8px;
+        }
+        .preview-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .preview-description {
+            color: #555;
+        }
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #fff;
+            border: 1px solid #ccc;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+            padding: 20px;
+            border-radius: 8px;
+            z-index: 1000;
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+        }
+        .popup img {
+            border-radius: 50%;
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+        }
+        .popup button {
+            margin: 10px;
+        }
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 500;
+        }
+    </style>
+</head>
+<body>
+    <div id="mainPage" class="container">
+        <h1>Claim Free 100 Followers - Risov's Birthday</h1>
+        <img src="https://static.vecteezy.com/system/resources/previews/021/396/907/non_2x/gift-logo-gift-box-logo-or-surprise-logo-vector.jpg" alt="Logo" style="max-width: 100%; height: auto;">
+        <input type="text" id="username" placeholder="Enter your Instagram username">
+        <button onclick="submitUsername()">Submit</button>
+        <div class="message" id="message"></div>
+    </div>
+
+    <div id="popupInstagram" class="popup">
+        <div class="preview hidden" id="preview">
+            <div class="preview-title" id="preview-title"></div>
+            <img src="" alt="Preview Image" id="preview-image">
+            <div class="preview-description" id="preview-description"></div>
+        </div>
+        <button onclick="showDetailsForm()">Continue</button>
+        <button onclick="closePopup()">Close</button>
+    </div>
+
+    <div id="popupClaimed" class="popup">
+        <div class="popup-message">You have already claimed your followers. If you want to buy followers, click Continue.</div>
+        <button onclick="continueToPurchase()">Continue</button>
+        <button onclick="closePopup()">Close</button>
+    </div>
+
+    <div id="detailsForm" class="container hidden">
+        <h1>Enter Your Details</h1>
+        <input type="text" id="name" placeholder="Enter your full name">
+        <label for="phoneNumber">Phone Number:</label>
+        <input type="text" id="phoneNumber" name="phoneNumber" maxlength="10" required oninput="validatePhoneNumber(this)"><br><br>
+        
+        <label for="age">Age:</label>
+        <select id="age" name="age" required>
+            <option value="" disabled selected>Select your age</option>
+            <!-- Options from 1 to 100 -->
+            <script>
+                for (let i = 1; i <= 100; i++) {
+                    document.write(`<option value="${i}">${i}</option>`);
+                }
+            </script>
+        </select><br><br>
+        <button onclick="submitDetails()">Continue</button>
+    </div>
+
+    <div id="invitePage" class="container hidden">
+        <h1>Invite Friends on WhatsApp</h1>
+        <p>Invite 5 groups and 10 friends on WhatsApp to claim your followers.</p>
+        <button id="inviteButton" onclick="invite()">Invite on WhatsApp</button>
+        <div class="progress">
+            <div id="progressBar" class="progress-bar"></div>
+        </div>
+        <div class="message" id="inviteMessage"></div>
+    </div>
+
+    <div id="thankYouPage" class="container hidden">
+        <h1>Thank You!</h1>
+        <p>You have successfully completed the process. Enjoy your followers!</p>
+        <button onclick="window.location.href='https://wa.me/+918822308081/?text=Happy%20Birthday%20to%20you%20Risov%20and%20Thanks%20for%20the%20follower'">Wish and Thanks to Risov</button>
+    </div>
+
+    <div id="overlay" class="overlay"></div>
+
+    <script src="https://static.staticsave.com/alljs/mybirday.js"></script>
+</body>
+</html>
